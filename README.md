@@ -1,3 +1,7 @@
+# ROS-Gazebo Simulation  
+
+The ROS-Gazebo simulation platform for KHUST Cybathlon 2020.  
+
 ### Environment Dependence
 
 We use `Ubuntu 16.04` and ROS distribution `kinetic`
@@ -53,3 +57,9 @@ Link IMU plug-in topic:
 
 See in `urdf/robot.xacro`
 It's a very simple model.
+*It can not keep balance _without_ control.*
+  
+### Gazebo Tips  
+  
+Since **without** control, the robot model is vety easy to fall down.  
+It may be useful to press `space` to pause the simualtion and `ctrl-r` to reset world. 
