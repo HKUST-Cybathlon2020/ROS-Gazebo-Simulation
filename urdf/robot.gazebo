@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/exoskeleton</robotNamespace>
+      <robotsimtype>gazebo_ros_control/defaultrobothwsim</robotsimtype>
+    </plugin>
+  </gazebo>
+  
+  <gazebo reference="waist_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="LU_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="RU_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="LD_link">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="RD_link">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="LF_link">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="RF_link">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+      
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>waist_link</bodyName>
+      <topicName>/imu/waist_link</topicName>
+      <serviceName>waist_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>LU_link</bodyName>
+      <topicName>/imu/LU_link</topicName>
+      <serviceName>LU_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>RU_link</bodyName>
+      <topicName>/imu/RU_link</topicName>
+      <serviceName>RU_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>LD_link</bodyName>
+      <topicName>/imu/LD_link</topicName>
+      <serviceName>LD_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>RD_link</bodyName>
+      <topicName>/imu/RD_link</topicName>
+      <serviceName>RD_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>LF_link</bodyName>
+      <topicName>/imu/LF_link</topicName>
+      <serviceName>LF_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>RF_link</bodyName>
+      <topicName>/imu/RF_link</topicName>
+      <serviceName>RF_imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+  </gazebo>
+</robot>
+

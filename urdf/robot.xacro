@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<robot name="exoskeleton" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <!--waist property-->
+  <xacro:property name="waist_mass" value="5" /> 
+  <xacro:property name="waist_length" value="0.45" /> 
+  <xacro:property name="waist_width" value="0.15" /> 
+  <xacro:property name="waist_height" value="0.05" /> 
+  <!--up property-->
+  <xacro:property name="up_mass" value="6" /> 
+  <xacro:property name="up_length" value="0.5" /> 
+  <xacro:property name="up_width" value="0.1" /> 
+  <xacro:property name="up_height" value="0.05" /> 
+  <xacro:property name="up_effort" value="500" /> 
+  <xacro:property name="up_lower" value="${-PI/2}" /> 
+  <xacro:property name="up_upper" value="${PI/6}" /> 
+  <xacro:property name="up_maxvel" value="${2*PI}" /> 
+  <!--down property-->
+  <xacro:property name="down_mass" value="4" /> 
+  <xacro:property name="down_length" value="0.5" /> 
+  <xacro:property name="down_width" value="0.1" /> 
+  <xacro:property name="down_height" value="0.05" /> 
+  <xacro:property name="down_effort" value="1500" /> 
+  <xacro:property name="down_lower" value="0" /> 
+  <xacro:property name="down_upper" value="${PI*2/3}" /> 
+  <xacro:property name="down_maxvel" value="${PI*3}" /> 
+  <!--foot property-->
+  <xacro:property name="foot_mass" value="1" /> 
+  <xacro:property name="foot_length" value="0.3" /> 
+  <xacro:property name="foot_width" value="0.15" /> 
+  <xacro:property name="foot_height" value="0.05" /> 
+  <xacro:property name="foot_effort" value="500" /> 
+  <xacro:property name="foot_lower" value="${-PI/18}" /> 
+  <xacro:property name="foot_upper" value="${PI/6}" /> 
+  <xacro:property name="foot_maxvel" value="${PI}" /> 
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find exoskeleton)/urdf/robot.gazebo" />
+
+  <link name="waist_link">
+    <collision>
+      <origin xyz="${-waist_height/2-up_width/2} 0 0" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${waist_height} ${waist_length} ${waist_width}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="${-waist_height/2-up_width/2} 0 0" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${waist_height} ${waist_length} ${waist_width}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="${-waist_height/2-up_width/2} 0 0" rpy="0 0 0"/>
+      <mass value="${waist_mass}"/>
+      <inertia
+	  ixx="${waist_mass / 12.0 * (waist_length*waist_length + waist_width*waist_width)}" ixy="0.0" ixz="0.0"
+	  iyy="${waist_mass / 12.0 * (waist_height*waist_height + waist_width*waist_width)}" iyz="0.0"
+	  izz="${waist_mass / 12.0 * (waist_height*waist_height + waist_length*waist_length)}"/>
+    </inertial>
+  </link>
+
+  <joint name="LU_joint" type="revolute">
+    <limit
+        velocity="${up_maxvel}" effort="${up_effort}" lower="${up_lower}" upper="${up_upper}" />
+    <parent link="waist_link"/>
+    <child link="LU_link"/>
+    <origin xyz="0 ${waist_length/2} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <link name="LU_link">
+    <collision>
+      <origin xyz="0 ${up_height/2} ${-(up_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${up_width} ${up_height} ${up_length}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 ${up_height/2} ${-(up_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${up_width} ${up_height} ${up_length}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 ${up_height/2} ${-(up_length/2)}" rpy="0 0 0"/>
+      <mass value="${up_mass}"/>
+      <inertia
+	  ixx="${up_mass / 12.0 * (up_height*up_height + up_length*up_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${up_mass / 12.0 * (up_width*up_width + up_length*up_length)}" iyz="0.0"
+	  izz="${up_mass / 12.0 * (up_width*up_width + up_height*up_height)}"/>
+    </inertial>
+  </link>
+
+  <joint name="RU_joint" type="revolute">
+    <limit
+        velocity="${up_maxvel}"  effort="${up_effort}" lower="${up_lower}" upper="${up_upper}" />
+    <parent link="waist_link"/>
+    <child link="RU_link"/>
+    <origin xyz="0 ${-(waist_length/2)} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <link name="RU_link">
+    <collision>
+      <origin xyz="0 ${-up_height/2} ${-(up_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${up_width} ${up_height} ${up_length}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 ${-up_height/2} ${-(up_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${up_width} ${up_height} ${up_length}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 ${-up_height/2} ${-(up_length/2)}" rpy="0 0 0"/>
+      <mass value="${up_mass}"/>
+      <inertia
+	  ixx="${up_mass / 12.0 * (up_height*up_height + up_length*up_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${up_mass / 12.0 * (up_width*up_width + up_length*up_length)}" iyz="0.0"
+	  izz="${up_mass / 12.0 * (up_width*up_width + up_height*up_height)}"/>
+    </inertial>
+  </link>
+
+  <joint name="LD_joint" type="revolute">
+    <limit
+        velocity="${down_maxvel}"  effort="${down_effort}" lower="${down_lower}" upper="${down_upper}" />
+    <parent link="LU_link"/>
+    <child link="LD_link"/>
+    <origin xyz="0 0 ${-up_length}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <link name="LD_link">
+    <collision>
+      <origin xyz="0 ${-down_height/2} ${-(down_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${down_width} ${down_height} ${down_length}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 ${-down_height/2} ${-(down_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${down_width} ${down_height} ${down_length}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 ${-down_height/2} ${-(down_length/2)}" rpy="0 0 0"/>
+      <mass value="${down_mass}"/>
+      <inertia
+	  ixx="${down_mass / 12.0 * (down_height*down_height + down_length*down_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${down_mass / 12.0 * (down_width*down_width + down_length*down_length)}" iyz="0.0"
+	  izz="${down_mass / 12.0 * (down_width*down_width + down_height*down_height)}"/>
+    </inertial>
+  </link>
+
+  <joint name="RD_joint" type="revolute">
+    <limit
+       velocity="${down_maxvel}" effort="${down_effort}" lower="${down_lower}" upper="${down_upper}" />
+    <parent link="RU_link"/>
+    <child link="RD_link"/>
+    <origin xyz="0 0 ${-up_length}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <link name="RD_link">
+    <collision>
+      <origin xyz="0 ${down_height/2} ${-(down_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${down_width} ${down_height} ${down_length}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 ${down_height/2} ${-(down_length/2)}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${down_width} ${down_height} ${down_length}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 ${down_height/2} ${-(down_length/2)}" rpy="0 0 0"/>
+      <mass value="${down_mass}"/>
+      <inertia
+	  ixx="${down_mass / 12.0 * (down_height*down_height + down_length*down_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${down_mass / 12.0 * (down_width*down_width + down_length*down_length)}" iyz="0.0"
+	  izz="${down_mass / 12.0 * (down_width*down_width + down_height*down_height)}"/>
+    </inertial>
+  </link>
+
+  <joint name="LF_joint" type="revolute">
+    <limit
+       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_lower}" upper="${foot_upper}" />
+    <parent link="LD_link"/>
+    <child link="LF_link"/>
+    <origin xyz="0 ${-down_height} ${-down_length}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <link name="LF_link">
+    <collision>
+      <origin xyz="${foot_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="${foot_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="${foot_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <mass value="${foot_mass}"/>
+      <inertia
+	  ixx="${foot_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
+	  iyy="${foot_mass / 12.0 * (foot_length*foot_length + foot_height*foot_height)}" iyz="0.0"
+	  izz="${foot_mass / 12.0 * (foot_length*foot_length + foot_width*foot_width)}"/>
+    </inertial>
+  </link>
+
+  <joint name="RF_joint" type="revolute">
+    <limit
+       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_lower}" upper="${foot_upper}" />
+    <parent link="RD_link"/>
+    <child link="RF_link"/>
+    <origin xyz="0 ${down_height} ${-down_length}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <link name="RF_link">
+    <collision>
+      <origin xyz="${foot_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="${foot_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="${foot_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <mass value="${foot_mass}"/>
+      <inertia
+	  ixx="${foot_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
+	  iyy="${foot_mass / 12.0 * (foot_length*foot_length + foot_height*foot_height)}" iyz="0.0"
+	  izz="${foot_mass / 12.0 * (foot_length*foot_length + foot_width*foot_width)}"/>
+    </inertial>
+  </link>
+
+  <!--transmission staff for effort joint-->
+  <transmission name="tran_LU">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LU_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_LU">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_RU">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RU_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_RU">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_LD">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LD_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_LD">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_RD">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RD_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_RD">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_LF">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_LF">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_RF">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_RF">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
