@@ -10,6 +10,7 @@
   
   <gazebo reference="waist_link">
     <material>Gazebo/Red</material>
+    <kinematic>True</kinematic>
   </gazebo>
   <gazebo reference="LU_link">
     <material>Gazebo/Orange</material>
