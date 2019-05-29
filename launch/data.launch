@@ -1,0 +1,4 @@
+<launch>
+    <node name="data_publisher" pkg="exoskeleton" type="data.py"/>
+</launch>
+
