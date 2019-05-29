@@ -1,0 +1,7 @@
+<launch>
+    <node name="LU_pendulum" pkg="exoskeleton" type="LU.py"/>
+    <node name="RU_pendulum" pkg="exoskeleton" type="RU.py"/>
+    <node name="LD_pendulum" pkg="exoskeleton" type="LD.py"/>
+    <node name="RD_pendulum" pkg="exoskeleton" type="RD.py"/>
+</launch>
+

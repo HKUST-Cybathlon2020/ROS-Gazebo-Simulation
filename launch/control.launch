@@ -11,8 +11,8 @@
                       LF_position_controller
                       RF_position_controller"/>
   <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
-	respawn="false" output="screen">
-    <remap from="/joint_states" to="/exoskeleton/joint_states" />
-  </node>
+  <!--<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"-->
+	<!--respawn="false" output="screen">-->
+    <!--<remap from="/joint_states" to="/exoskeleton/joint_states" />-->
+  <!--</node>-->
 </launch>
