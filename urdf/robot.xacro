@@ -25,13 +25,17 @@
   <xacro:property name="down_upper" value="${PI*2/3}" /> 
   <xacro:property name="down_maxvel" value="${PI*3}" /> 
   <!--foot property-->
-  <xacro:property name="foot_mass" value="1" /> 
-  <xacro:property name="foot_length" value="0.3" /> 
+  <xacro:property name="foot_back_mass" value="0.5" /> 
+  <xacro:property name="foot_front_mass" value="0.5" /> 
+  <xacro:property name="foot_back_length" value="0.15" /> 
+  <xacro:property name="foot_front_length" value="0.15" /> 
   <xacro:property name="foot_width" value="0.15" /> 
   <xacro:property name="foot_height" value="0.05" /> 
   <xacro:property name="foot_effort" value="500" /> 
-  <xacro:property name="foot_lower" value="${-PI/18}" /> 
-  <xacro:property name="foot_upper" value="${PI/6}" /> 
+  <xacro:property name="foot_front_lower" value="${-PI/3}" /> 
+  <xacro:property name="foot_front_upper" value="0" /> 
+  <xacro:property name="foot_back_lower" value="${-PI/18}" /> 
+  <xacro:property name="foot_back_upper" value="${PI/6}" /> 
   <xacro:property name="foot_maxvel" value="${PI}" /> 
 
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
@@ -195,7 +199,7 @@
 
   <joint name="LF_joint" type="revolute">
     <limit
-       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_lower}" upper="${foot_upper}" />
+       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_back_lower}" upper="${foot_back_upper}" />
     <parent link="LD_link"/>
     <child link="LF_link"/>
     <origin xyz="0 ${-down_height} ${-down_length}" rpy="0 0 0"/>
@@ -203,32 +207,35 @@
     <dynamics damping="0.7"/>
   </joint>
   <link name="LF_link">
+    <gazebo>
+        <self_collide>1</self_collide>
+    </gazebo>
     <collision>
-      <origin xyz="${foot_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <origin xyz="${foot_back_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
       <geometry>
-	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+	    <box size="${foot_back_length} ${foot_width} ${foot_height}"/>
       </geometry>
     </collision>
     <visual>
-      <origin xyz="${foot_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <origin xyz="${foot_back_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
       <geometry>
-	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+	    <box size="${foot_back_length} ${foot_width} ${foot_height}"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin xyz="${foot_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
-      <mass value="${foot_mass}"/>
+      <origin xyz="${foot_back_length/2-down_width/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <mass value="${foot_back_mass}"/>
       <inertia
-	  ixx="${foot_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
-	  iyy="${foot_mass / 12.0 * (foot_length*foot_length + foot_height*foot_height)}" iyz="0.0"
-	  izz="${foot_mass / 12.0 * (foot_length*foot_length + foot_width*foot_width)}"/>
+	  ixx="${foot_back_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
+	  iyy="${foot_back_mass / 12.0 * (foot_back_length*foot_back_length + foot_height*foot_height)}" iyz="0.0"
+	  izz="${foot_back_mass / 12.0 * (foot_back_length*foot_back_length + foot_width*foot_width)}"/>
     </inertial>
   </link>
 
   <joint name="RF_joint" type="revolute">
     <limit
-       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_lower}" upper="${foot_upper}" />
+       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_back_lower}" upper="${foot_back_upper}" />
     <parent link="RD_link"/>
     <child link="RF_link"/>
     <origin xyz="0 ${down_height} ${-down_length}" rpy="0 0 0"/>
@@ -237,25 +244,100 @@
   </joint>
   <link name="RF_link">
     <collision>
-      <origin xyz="${foot_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <origin xyz="${foot_back_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
       <geometry>
-	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+	    <box size="${foot_back_length} ${foot_width} ${foot_height}"/>
       </geometry>
     </collision>
     <visual>
-      <origin xyz="${foot_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <origin xyz="${foot_back_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
       <geometry>
-	    <box size="${foot_length} ${foot_width} ${foot_height}"/>
+	    <box size="${foot_back_length} ${foot_width} ${foot_height}"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin xyz="${foot_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
-      <mass value="${foot_mass}"/>
+      <origin xyz="${foot_back_length/2-down_width/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <mass value="${foot_back_mass}"/>
       <inertia
-	  ixx="${foot_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
-	  iyy="${foot_mass / 12.0 * (foot_length*foot_length + foot_height*foot_height)}" iyz="0.0"
-	  izz="${foot_mass / 12.0 * (foot_length*foot_length + foot_width*foot_width)}"/>
+	  ixx="${foot_back_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
+	  iyy="${foot_back_mass / 12.0 * (foot_back_length*foot_back_length + foot_height*foot_height)}" iyz="0.0"
+	  izz="${foot_back_mass / 12.0 * (foot_back_length*foot_back_length + foot_width*foot_width)}"/>
+    </inertial>
+  </link>
+
+  <joint name="LFF_joint" type="revolute">
+    <limit
+       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_front_lower}" upper="${foot_front_upper}" />
+    <parent link="LF_link"/>
+    <child link="LFF_link"/>
+    <origin xyz="${foot_back_length-down_width/2} 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+
+  <link name="LFF_link">
+    <gazebo>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <collision>
+      <origin xyz="${foot_front_length/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_front_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="${foot_front_length/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_front_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="${foot_front_length/2} ${-foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <mass value="${foot_front_mass}"/>
+      <inertia
+	  ixx="${foot_front_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
+	  iyy="${foot_front_mass / 12.0 * (foot_front_length*foot_front_length + foot_height*foot_height)}" iyz="0.0"
+	  izz="${foot_front_mass / 12.0 * (foot_front_length*foot_front_length + foot_width*foot_width)}"/>
+    </inertial>
+  </link>
+
+
+  <joint name="RFF_joint" type="revolute">
+    <limit
+       velocity="${foot_maxvel}" effort="${foot_effort}" lower="${foot_front_lower}" upper="${foot_front_upper}" />
+    <parent link="RF_link"/>
+    <child link="RFF_link"/>
+    <origin xyz="${foot_back_length-down_width/2} 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
+
+  <link name="RFF_link">
+    <gazebo>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <collision>
+      <origin xyz="${foot_front_length/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_front_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="${foot_front_length/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <geometry>
+	    <box size="${foot_front_length} ${foot_width} ${foot_height}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="${foot_front_length/2} ${foot_width/2} ${-foot_height/2}" rpy="0 0 0"/>
+      <mass value="${foot_front_mass}"/>
+      <inertia
+	  ixx="${foot_front_mass / 12.0 * (foot_width*foot_width + foot_height*foot_height)}" ixy="0.0" ixz="0.0"
+	  iyy="${foot_front_mass / 12.0 * (foot_front_length*foot_front_length + foot_height*foot_height)}" iyz="0.0"
+	  izz="${foot_front_mass / 12.0 * (foot_front_length*foot_front_length + foot_width*foot_width)}"/>
     </inertial>
   </link>
 

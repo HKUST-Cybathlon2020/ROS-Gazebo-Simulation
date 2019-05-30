@@ -14,6 +14,8 @@ We need ROS-Gazebo interface and controller packages:
 
 `sudo apt install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control ros-kinetic-ros-controllers` 
 
+**After git clone please change the name of the directory** `mv ROS-Gazebo-Simulation exoskeleton`
+
 ### Launch the Simulation
 
 Firstly, copy the directory `exoskeleton` to your `catkin_ws/src`
@@ -58,8 +60,12 @@ Link IMU plug-in topic:
 See in `urdf/robot.xacro`
 It's a very simple model.
 *It can not keep balance _without_ control.*
-  
+
+### Gazebo Plugin
+
+Run the script `setup.bash` in `/gazebo_plugin` to set up the gazebo plug-in environment.
+
 ### Gazebo Tips  
-  
+
 Since **without** control, the robot model is vety easy to fall down.  
 It may be useful to press `space` to pause the simualtion and `ctrl-r` to reset world. 

@@ -7,26 +7,26 @@ exoskeleton:
   LU_position_controller:
     type: effort_controllers/JointPositionController
     joint: LU_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 0.1, d: 10.0}
   RU_position_controller:
     type: effort_controllers/JointPositionController
     joint: RU_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 0.1, d: 10.0}
   LD_position_controller:
     type: effort_controllers/JointPositionController
     joint: LD_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 0.1, d: 10.0}
   RD_position_controller:
     type: effort_controllers/JointPositionController
     joint: RD_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
-  LF_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: LF_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
-  RF_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: RF_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 0.1, d: 10.0}
+  #LF_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: LF_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}
+  #RF_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: RF_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}
 
 
