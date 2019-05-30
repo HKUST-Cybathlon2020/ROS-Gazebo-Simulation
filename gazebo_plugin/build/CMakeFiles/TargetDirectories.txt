@@ -1,3 +1,0 @@
-/home/destinxxy/catkin_ws/src/exoskeleton/gazebo_plugin/build/CMakeFiles/edit_cache.dir
-/home/destinxxy/catkin_ws/src/exoskeleton/gazebo_plugin/build/CMakeFiles/rebuild_cache.dir
-/home/destinxxy/catkin_ws/src/exoskeleton/gazebo_plugin/build/CMakeFiles/spring_joint.dir
