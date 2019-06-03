@@ -20,7 +20,7 @@ namespace gazebo
       if (!_sdf->HasElement("stiffness"))
         {
         // if parameter tag does NOT exist
-        std::cout << "Missing parameter <stiffness> in PluginName, default to 10000" << std::endl;
+        std::cout << "Missing parameter <stiffness> in PluginName, default to 1000" << std::endl;
         stiffness = 1000;
         }
       if (!_sdf->HasElement("leftJoint"))
@@ -40,6 +40,8 @@ namespace gazebo
       stiffness = _sdf->GetElement("stiffness")->Get<int>();
       leftJointPtr = this->model->GetJoint(leftJoint);
       rightJointPtr = this->model->GetJoint(rightJoint);
+      std::cout<<"Spring joint"<<rightJoint<<" and "<<leftJoint<<
+      " load stiffness "<<stiffness<<std::endl;
       // Listen to the update event. This event is broadcast every
       // simulation iteration.
       this->updateConnection = event::Events::ConnectWorldUpdateBegin(
