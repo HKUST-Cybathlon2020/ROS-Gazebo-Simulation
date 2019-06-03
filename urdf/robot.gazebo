@@ -5,6 +5,7 @@
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/exoskeleton</robotNamespace>
       <robotsimtype>gazebo_ros_control/defaultrobothwsim</robotsimtype>
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
   
