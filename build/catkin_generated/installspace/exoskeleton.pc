@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: exoskeleton
-Description: Description of exoskeleton
-Version: 0.0.0
-Cflags: 
-Libs: -L/usr/local/lib 
-Requires: 

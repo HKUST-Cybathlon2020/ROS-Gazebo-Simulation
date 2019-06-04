@@ -1,8 +1,0 @@
-prefix=/home/admin/catkin_ws/src/exoskeleton/build/devel
-
-Name: exoskeleton
-Description: Description of exoskeleton
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/admin/catkin_ws/src/exoskeleton/build/devel/lib 
-Requires: 
