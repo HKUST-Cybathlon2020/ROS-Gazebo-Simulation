@@ -2,12 +2,12 @@
 <robot name="exoskeleton" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931"/>
   <!--waist property-->
-  <xacro:property name="waist_mass" value="5" /> 
+  <xacro:property name="waist_mass" value="10" /> 
   <xacro:property name="waist_length" value="0.45" /> 
   <xacro:property name="waist_width" value="0.15" /> 
   <xacro:property name="waist_height" value="0.05" /> 
   <!--up property-->
-  <xacro:property name="up_mass" value="6" /> 
+  <xacro:property name="up_mass" value="8" /> 
   <xacro:property name="up_length" value="0.5" /> 
   <xacro:property name="up_width" value="0.1" /> 
   <xacro:property name="up_height" value="0.05" /> 
@@ -16,7 +16,7 @@
   <xacro:property name="up_upper" value="${PI/6}" /> 
   <xacro:property name="up_maxvel" value="${2*PI}" /> 
   <!--down property-->
-  <xacro:property name="down_mass" value="4" /> 
+  <xacro:property name="down_mass" value="3" /> 
   <xacro:property name="down_length" value="0.5" /> 
   <xacro:property name="down_width" value="0.1" /> 
   <xacro:property name="down_height" value="0.05" /> 
@@ -25,7 +25,7 @@
   <xacro:property name="down_upper" value="${PI*2/3}" /> 
   <xacro:property name="down_maxvel" value="${PI*3}" /> 
   <!--foot property-->
-  <xacro:property name="foot_back_mass" value="0.5" /> 
+  <xacro:property name="foot_back_mass" value="1" /> 
   <xacro:property name="foot_front_mass" value="0.5" /> 
   <xacro:property name="foot_back_length" value="0.15" /> 
   <xacro:property name="foot_front_length" value="0.15" /> 

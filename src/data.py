@@ -11,6 +11,7 @@ def data_LU(time):
 def data_LD(time):
     time = 3.7699*time
     return -22.641+12.5562*math.cos(1*time)-19.7304*math.sin(1*time)+5.7732*math.cos(2*time)+6.0234*math.sin(2*time)-1.5175*math.cos(3*time)+0.51306*math.sin(3*time)-0.51899*math.cos(4*time)+0.19866*math.sin(4*time)
+
 def data_RU(time):
     time = 3.7699*time
     return 14.1674+19.2834*math.cos(1*time)-1.6651*math.sin(1*time)-0.89819*math.cos(2*time)-4.6888*math.sin(2*time)-1.2296*math.cos(3*time)+0.3614*math.sin(3*time)+0.0083281*math.cos(4*time)+0.29098*math.sin(4*time)

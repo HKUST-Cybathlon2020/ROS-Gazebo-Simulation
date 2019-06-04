@@ -33,9 +33,11 @@
   </gazebo>
   <gazebo reference="LFF_link">
     <material>Gazebo/Orange</material>
+    <mu1>10.0</mu1>
   </gazebo>
   <gazebo reference="RFF_link">
     <material>Gazebo/Orange</material>
+    <mu1>10.0</mu1>
   </gazebo>
       
   <gazebo>
