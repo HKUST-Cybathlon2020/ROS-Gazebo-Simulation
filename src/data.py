@@ -20,29 +20,37 @@ def data_RD(time):
     time = 3.7699*time
     return -27.5046-8.1823*math.cos(1*time)+19.4181*math.sin(1*time)+8.0785*math.cos(2*time)+6.2189*math.sin(2*time)+1.7045*math.cos(3*time)-0.75302*math.sin(3*time)-0.23211*math.cos(4*time)-0.014863*math.sin(4*time)
 
-def data_publisher():
-    # /exoskeleton/**_position_controller/command
-    rospy.init_node("data_publisher")
-    pub_LU = rospy.Publisher('/exoskeleton/LU_position_controller/command',Float64, queue_size=10)
-    pub_RU = rospy.Publisher('/exoskeleton/RU_position_controller/command',Float64, queue_size=10)
-    pub_LD = rospy.Publisher('/exoskeleton/LD_position_controller/command',Float64, queue_size=10)
-    pub_RD = rospy.Publisher('/exoskeleton/RD_position_controller/command',Float64, queue_size=10)
-    rate = rospy.Rate(20)
-    while not rospy.is_shutdown():
-        t = rospy.get_time()
-        val_LU = -data_LU(t)*math.pi/180
-        val_RU = -data_RU(t)*math.pi/180
-        val_LD = -data_LD(t)*math.pi/180
-        val_RD = -data_RD(t)*math.pi/180
-        pub_LU.publish(val_LU)
-        pub_RU.publish(val_RU)
-        pub_LD.publish(val_LD)
-        pub_RD.publish(val_RD)
-        rate.sleep()
-        
+class data_publisher():
+    def __init__(self):
+        rospy.init_node("data_publisher")
+        self.pub_LU = rospy.Publisher('/exoskeleton/LU_position_controller/command',Float64, queue_size=10)
+        self.pub_RU = rospy.Publisher('/exoskeleton/RU_position_controller/command',Float64, queue_size=10)
+        self.pub_LD = rospy.Publisher('/exoskeleton/LD_position_controller/command',Float64, queue_size=10)
+        self.pub_RD = rospy.Publisher('/exoskeleton/RD_position_controller/command',Float64, queue_size=10)
+        self.rate = rospy.Rate(100)
+
+    def work(self):
+        while not rospy.is_shutdown():
+            t = rospy.get_time()
+            val_LU = -data_LU(t)*math.pi/180
+            val_RU = -data_RU(t)*math.pi/180
+            val_LD = -data_LD(t)*math.pi/180
+            val_RD = -data_RD(t)*math.pi/180
+            self.pub_LU.publish(val_LU)
+            self.pub_RU.publish(val_RU)
+            self.pub_LD.publish(val_LD)
+            self.pub_RD.publish(val_RD)
+            self.rate.sleep()
+
+    def reset(self): 
+        self.pub_LU.publish(0.1)
+        self.pub_RU.publish(0.1)
+        self.pub_LD.publish(0.1)
+        self.pub_RD.publish(0.1)
 
 if __name__ == '__main__':
     try:
-        data_publisher()
+        dp = data_publisher()
+        dp.work()
     except rospy.ROSInterruptException:
-        pass
+        dp.reset()
