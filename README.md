@@ -1,18 +1,20 @@
+![demo](./img/2020-03-12.png)
+
 # ROS-Gazebo Simulation  
 
-The ROS-Gazebo simulation platform for KHUST Cybathlon 2020.  
+A simplt ROS-Gazebo simulation 
 
 ### Environment Dependence
 
-We use `Ubuntu 16.04` and ROS distribution `kinetic`
+Both *Ubuntu 16.04 + ros-kinetic* and *Ubuntu 18.04 + ros-melodic* is compatible.
 
 To install ROS:
 
-`sudo apt install ros-kinetic-desktop-full`
+`sudo apt install ros-<distro>-desktop-full`
 
 We need ROS-Gazebo interface and controller packages:
 
-`sudo apt install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control ros-kinetic-ros-controllers` 
+`sudo apt install ros-<distro>-gazebo-ros-pkgs ros-<distro>-gazebo-ros-control ros-<distro>-ros-controllers` 
 
 **After git clone please change the name of the directory** `mv ROS-Gazebo-Simulation exoskeleton`
 
@@ -60,10 +62,6 @@ Link IMU plug-in topic:
 See in `urdf/robot.xacro`
 It's a very simple model.
 *It can not keep balance _without_ control.*
-
-### Gazebo Plugin
-
-Run the script `setup.bash` in `/gazebo_plugin` to set up the gazebo plug-in environment.
 
 ### Gazebo Tips  
 
